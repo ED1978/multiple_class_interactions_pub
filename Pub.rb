@@ -57,4 +57,23 @@ class Pub
     end
   end
 
+  def total_drinks_value()
+    total = 0
+    for drink in @drinks
+      total += drink.price
+    end
+    return total
+  end
+
+  def total_food_value()
+    total = 0
+    for food_type in @food
+      total += food_type.price
+    end
+    return total
+  end
+
+  def total_stock_value()
+    return total_drinks_value() + total_food_value() 
+  end
 end

@@ -18,6 +18,7 @@ class PubTest < MiniTest::Test
     @steve = Customer.new("Steve", 50.00, 16)
     @mike = Customer.new("Mike", 50.00, 20)
     @pizza = Food.new("Pizza", 5.99, 2)
+    @burger = Food.new("Burger", 3.99, 1)
 
   end
 
@@ -93,6 +94,35 @@ class PubTest < MiniTest::Test
   def test_check_drunkness_exact_limit
     result = @pub.check_drunkness(5)
     assert_equal(false, result)
+  end
+
+  def test_total_drinks_value()
+    @pub.add_drink(@vodka)
+    @pub.add_drink(@rum)
+    @pub.add_drink(@wine)
+    @pub.add_drink(@beer)
+    result = @pub.total_drinks_value()
+    assert_equal(12.99, result)
+  end
+
+  def test_total_food_value()
+    @pub.add_food(@pizza)
+    @pub.add_food(@burger)
+    result = @pub.total_food_value()
+    assert_equal(9.98, result)
+  end
+
+  def test_total_stock_value()
+    @pub.add_drink(@vodka)
+    @pub.add_drink(@rum)
+    @pub.add_drink(@wine)
+    @pub.add_drink(@beer)
+    @pub.add_food(@pizza)
+    @pub.add_food(@burger)
+
+    result = @pub.total_stock_value()
+
+    assert_equal(22.97, result)
   end
 
 end
