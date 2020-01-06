@@ -3,6 +3,7 @@ require('minitest/rg')
 require_relative('../Pub.rb')
 require_relative('../Drink.rb')
 require_relative('../Customer.rb')
+require_relative('../Food.rb')
 
 class PubTest < MiniTest::Test
 
@@ -16,6 +17,7 @@ class PubTest < MiniTest::Test
     @dave = Customer.new("Dave", 50.00, 18)
     @steve = Customer.new("Steve", 50.00, 16)
     @mike = Customer.new("Mike", 50.00, 20)
+    @pizza = Food.new("Pizza", 5.99, 2)
 
   end
 
@@ -27,20 +29,35 @@ class PubTest < MiniTest::Test
     assert_equal(1000.00, @pub.till)
   end
 
-  def test_get_stock_count()
-    assert_equal(0, @pub.get_stock_count())
+  def test_get_drinks_count()
+    assert_equal(0, @pub.get_drinks_count())
+  end
+
+  def test_get_food_count()
+    assert_equal(0, @pub.get_food_count())
+  end
+
+  def test_add_food()
+    @pub.add_food(@pizza)
+    assert_equal(1, @pub.get_food_count())
+  end
+
+  def test_remove_food()
+    @pub.add_food(@pizza)
+    @pub.remove_food(@pizza)
+    assert_equal(0, @pub.get_food_count())
   end
 
   def test_can_add_drink()
     @pub.add_drink(@vodka)
-    assert_equal(1, @pub.get_stock_count)
+    assert_equal(1, @pub.get_drinks_count)
   end
 
   def test_can_remove_drink()
     @pub.add_drink(@vodka)
     @pub.add_drink(@rum)
     @pub.remove_drink(@rum)
-    assert_equal(1, @pub.get_stock_count)
+    assert_equal(1, @pub.get_drinks_count)
   end
 
   def test_can_increase_till()

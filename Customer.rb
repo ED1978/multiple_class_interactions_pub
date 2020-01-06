@@ -19,6 +19,10 @@ class Customer
     @drunkness += amount
   end
 
+  def reduce_drunkness(amount)
+    @drunkness -= amount
+  end
+
   def buy_drink(pub, drink)
     if pub.check_customer_age(@age) == true
       if pub.check_drunkness(@drunkness) == false
@@ -28,6 +32,13 @@ class Customer
         increase_drunkness(drink.alcohol_level)
       end
     end
+  end
+
+  def buy_food(pub, food)
+    pub.remove_food(food)
+    reduce_funds(food.price)
+    pub.increase_till(food.price)
+    reduce_drunkness(food.rejuvenation_level)
   end
 
 end

@@ -9,11 +9,16 @@ class Pub
     @name = name
     @till = till
     @drinks = []
+    @food = []
 
   end
 
-  def get_stock_count()
+  def get_drinks_count()
     return @drinks.length
+  end
+
+  def get_food_count()
+    return @food.length
   end
 
   def add_drink(drink)
@@ -22,6 +27,14 @@ class Pub
 
   def remove_drink(drink)
     @drinks.delete(drink)
+  end
+
+  def add_food(food)
+    @food.push(food)
+  end
+
+  def remove_food(food)
+    @food.delete(food)
   end
 
   def increase_till(amount)
