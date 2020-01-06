@@ -21,16 +21,12 @@ class Customer
 
   def buy_drink(pub, drink)
     if pub.check_customer_age(@age) == true
-
       if pub.check_drunkness(@drunkness) == false
-
         pub.remove_drink(drink)
         reduce_funds(drink.price)
         pub.increase_till(drink.price)
         increase_drunkness(drink.alcohol_level)
-
       end
-
     end
   end
 
