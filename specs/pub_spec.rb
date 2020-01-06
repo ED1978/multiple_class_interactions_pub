@@ -2,16 +2,20 @@ require('minitest/autorun')
 require('minitest/rg')
 require_relative('../Pub.rb')
 require_relative('../Drink.rb')
+require_relative('../Customer.rb')
 
 class PubTest < MiniTest::Test
 
   def setup()
 
     @pub = Pub.new("The Vic", 1000.00)
-    @vodka = Drink.new("Vodka", 2.99)
-    @rum = Drink.new("Rum", 2.50)
-    @wine = Drink.new("Wine", 5.00)
-    @beer = Drink.new("Beer", 2.50)
+    @vodka = Drink.new("Vodka", 2.99, 3)
+    @rum = Drink.new("Rum", 2.50, 4)
+    @wine = Drink.new("Wine", 5.00, 2)
+    @beer = Drink.new("Beer", 2.50, 1)
+    @dave = Customer.new("Dave", 50.00, 18)
+    @steve = Customer.new("Steve", 50.00, 16)
+    @mike = Customer.new("Mike", 50.00, 20)
 
   end
 
@@ -42,6 +46,36 @@ class PubTest < MiniTest::Test
   def test_can_increase_till()
     @pub.increase_till(2.50)
     assert_equal(1002.50, @pub.till())
+  end
+
+  def test_check_customer_age_18()
+    result = @pub.check_customer_age(18)
+    assert_equal(true, result)
+  end
+
+  def test_check_customer_age_false()
+    result = @pub.check_customer_age(16)
+    assert_equal(false, result)
+  end
+
+  def test_check_customer_age_over()
+    result = @pub.check_customer_age(20)
+    assert_equal(true, result)
+  end
+
+  def test_check_drunkness_under_limit()
+      result = @pub.check_drunkness(2)
+      assert_equal(false, result)
+  end
+
+  def test_check_drunkness_over_limit()
+    result = @pub.check_drunkness(6)
+    assert_equal(true, result)
+  end
+
+  def test_check_drunkness_exact_limit
+    result = @pub.check_drunkness(5)
+    assert_equal(false, result)
   end
 
 end
